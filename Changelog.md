@@ -22,5 +22,16 @@ All notable changes to this project will be documented in this file.
 - **TypeScript First**: Full type definitions included (`.d.ts`) for excellent developer experience in both JS and TS environments.
 - **Zero-Latency Design**: AI analysis runs in the background to ensure the end-user's request/response cycle is never delayed.
 
+## [0.0.4] - 2026-05-09
+
+### 🚀 Added
+- **Production WebSocket Infrastructure**: Migrated to a stable, secure production environment at `wss://inspekt-engine-production.up.railway.app`.
+- **Exponential Backoff with Jitter**: Implemented an intelligent reconnection strategy to prevent server thundering herds during network outages.
+- **Enhanced NestJS Interceptor**: Added explicit error capturing using `catchError` to ensure 500 status codes are correctly reported to the engine before the response is finalized.
+
+### 🛠️ Technical Improvements
+- **ESM-Native Compatibility**: Fully optimized for Node.js 20+ ESM environments with proper subpath exports for generated clients.
+- **Handshake Protocol**: Improved the initial connection handshake to include API key validation and redaction rule synchronization immediately upon socket open.
+- **Protocol Security**: Enforced WSS (WebSocket Secure) for all production traffic to comply with modern browser security standards.
 ---
 *Initial Release by [Olatunji Jamaldeen](https://github.com/jamaldeen09)*

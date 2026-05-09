@@ -3,6 +3,7 @@ import Inspekt from "../core.js"
 
 const inspektExpress = (inspekt: Inspekt): RequestHandler => {
     return (req, res, next) => {
+        const startTime = performance.now(); 
         const originalJson = res.json;
         let capturedBody: any = null;
 
@@ -10,9 +11,17 @@ const inspektExpress = (inspekt: Inspekt): RequestHandler => {
             capturedBody = body;
             return originalJson.call(this, body);
         };
-        console.log("radn")
 
-        res.on('finish', () => inspekt.backgroundAnalysis(req, res, capturedBody));
+        res.on("finish", () => {
+            const responseTime = Math.round(performance.now() - startTime);
+            inspekt.newAnalysis({
+                req,
+                res,
+                responseBody: capturedBody,
+                responseHeaders: res.getHeaders(),
+                responseTime
+            })
+        });
         next();
     };
 };

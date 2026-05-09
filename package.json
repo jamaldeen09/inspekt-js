@@ -1,31 +1,26 @@
 {
   "name": "@inspekt/js",
-  "version": "0.0.3",
-  "description": "AI-powered API monitoring and diagnostics. Drop-in middleware for Express, NestJS, and Fastify that logs structured analysis directly to your terminal.",
+  "version": "0.0.4",
+  "description": "High-fidelity AI diagnostics for API failures. Stream real-time autopsies directly to your terminal.",
+  "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
-  "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
       "import": "./dist/index.js"
     },
     "./express": {
       "types": "./dist/adapters/express.d.ts",
-      "require": "./dist/adapters/express.js",
       "import": "./dist/adapters/express.js"
     },
     "./fastify": {
       "types": "./dist/adapters/fastify.d.ts",
-      "require": "./dist/adapters/fastify.js",
       "import": "./dist/adapters/fastify.js"
     },
-
     "./nest": {
       "types": "./dist/adapters/nest.d.ts",
-      "require": "./dist/adapters/nest.js",
       "import": "./dist/adapters/nest.js"
     }
   },
@@ -33,9 +28,10 @@
     "dist",
     "README.md"
   ],
-  "homepage": "https://google.com",
+  "homepage": "https://github.com/jamaldeen09/inspekt-js#readme",
   "repository": {
-    "url": "https://github.com/jamaldeen09/inspekt-sdk-js"
+    "type": "git",
+    "url": "git+https://github.com/jamaldeen09/inspekt-js.git"
   },
   "publishConfig": {
     "access": "public"
@@ -49,30 +45,33 @@
     "monitoring",
     "ai",
     "diagnostics",
+    "observability",
     "express",
     "nestjs",
     "fastify",
     "middleware",
-    "logging",
-    "api-audit",
-    "debugging"
+    "logging"
   ],
   "author": "jamaldeen.o",
   "license": "MIT",
   "dependencies": {
-    "axios": "^1.14.0",
-    "fastify-plugin": "^5.1.0"
+    "fastify-plugin": "^5.1.0",
+    "ws": "^8.20.0"
   },
   "peerDependencies": {
     "@nestjs/common": ">=10.0.0",
+    "@nestjs/core": ">=10.0.0",
     "express": ">=4.0.0",
     "fastify": ">=4.0.0",
     "rxjs": "^7.0.0"
   },
   "devDependencies": {
     "@nestjs/common": "^11.1.17",
+    "@nestjs/core": "^11.1.19",
+    "@nestjs/platform-express": "^11.1.19",
     "@types/express": "^5.0.6",
     "@types/node": "^25.5.0",
+    "@types/ws": "^8.18.1",
     "express": "^5.2.1",
     "fastify": "^5.8.4",
     "rxjs": "^7.8.2",

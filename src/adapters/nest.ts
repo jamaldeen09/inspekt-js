@@ -3,39 +3,47 @@ import {
     NestInterceptor,
     ExecutionContext,
     CallHandler,
+    Inject,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import Inspekt from '../core.js';
+import { Observable, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 
 @Injectable()
-class InspektInterceptor implements NestInterceptor {
-    constructor(private readonly inspekt: Inspekt) { }
+export default class InspektInterceptor implements NestInterceptor {
+    constructor(@Inject("INSPEKT") private readonly inspekt: any) { }
 
-    /**
-     * NestJS Interceptor implementation.
-     * intercepts the execution stream to capture request and response data.
-     */
     intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+        const startTime = performance.now();
         const httpContext = context.switchToHttp();
         const request = httpContext.getRequest();
         const response = httpContext.getResponse();
-
-        // We use the RxJS 'tap' operator to look at the response 
-        // without mutating the data being sent to the client.
         return next.handle().pipe(
-            tap({
-                next: (body) => {
-                    // This runs in the background AFTER the controller returns
-                    this.inspekt.backgroundAnalysis(request, response, body)
-                },
-                error: (err) => {
-                    // Captures unhandled exceptions in the controller
-                    this.inspekt.backgroundAnalysis(request, response, err)
-                },
+            tap((body) => {
+                const responseTime = Math.round(performance.now() - startTime);
+                this.inspekt.newAnalysis({
+                    req: request,
+                    res: response,
+                    responseBody: body,
+                    responseHeaders: response.getHeaders(),
+                    responseTime,
+                });
             }),
+            catchError((err) => {
+                const responseTime = Math.round(performance.now() - startTime);
+                const status = err.status || err.statusCode || 500;
+                response.statusCode = status;
+
+                this.inspekt.newAnalysis({
+                    req: request,
+                    res: response, 
+                    responseBody: err,
+                    responseHeaders: response.getHeaders(),
+                    responseTime,
+                    status,
+                });
+
+                return throwError(() => err);
+            })
         );
     }
 }
-
-export default InspektInterceptor
