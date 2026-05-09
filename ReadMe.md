@@ -54,7 +54,7 @@ import inspektExpress from "@inspekt/js/express";
 const app = express();
 
 const inspekt = new Inspekt({
-  apiKey: "ins_live_your_key_here",
+  apiKey: "your_key_here",
   analysisMode: "errors", // Only analyze 4xx and 5xx responses
   redactKeys: ["password", "card_number"], // Sensitive keys to scrub before AI analysis
 });
@@ -86,7 +86,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const inspekt = new Inspekt({
-    apiKey: "ins_live_your_key_here",
+    apiKey: "your_key_here",
     analysisMode: "errors",
   });
 
@@ -111,7 +111,7 @@ import inspektFastify from "@inspekt/js/fastify";
 const fastify = Fastify();
 
 const inspekt = new Inspekt({
-  apiKey: "ins_live_your_key_here",
+  apiKey: "your_key_here",
   analysisMode: "errors",
 });
 
@@ -231,7 +231,7 @@ Inspekt automatically redacts `authorization`, `cookie`, and `set-cookie` header
 
 ```typescript
 const inspekt = new Inspekt({
-  apiKey: "ins_live_your_key_here",
+  apiKey: "your_key_here",
   redactKeys: ["x-api-secret", "x-internal-token", "stripe-signature"],
 });
 ```
