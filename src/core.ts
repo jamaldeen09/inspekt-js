@@ -192,10 +192,10 @@ class Inspekt {
         }
     };
 
-    /**
-     * Validates api keys to follow inspekt's official  
-     * api key format and to make sure it exists 
-     * @param key 
+   /**
+     * Validates that the API key exists, follows the official 'ins_live_' 
+     * format, and matches the required character length.
+     * @param key - The raw API key string.
      * @private
      */
     private validateApiKey(key: string): string {
@@ -222,12 +222,11 @@ class Inspekt {
     };
 
     /**
-     * Renders the AI analysis results to the system console.
-     * * This method handles the visual construction of the "Inspekt Card,"
-     * including ANSI color-coding for severity levels (OK, WARNING, CRITICAL),
-     * and structured sections for Diagnosis, Issues, Security, and Fixes.
-     * @param analysis - The structured JSON object returned from the Inspekt AI engine.
-     * @param req - The incoming Express request object used to extract the method, path, and timestamp.
+     * Renders AI analysis results to the system console.
+     * Constructs a structured "Inspekt Card" using ANSI colors, displaying 
+     * status, diagnosis, security flags, and recommended fixes.
+     * @param analysis - The structured JSON result from the AI engine.
+     * @param metadata - Contextual data (method/path) for the card header.
      * @private
      */
     private logAnalysis(analysis: any, metadata: any) {
@@ -296,14 +295,12 @@ class Inspekt {
     }
 
     /**
-     * processes the captured response in the background.
-     * handles the logic for parsing the ai response and triggering the console logs.
-     * @param req - the original express request object
-     * @param res - the express response object
-     * @param body - the intercepted response body
+     * Prepares and sanitizes captured request/response data.
+     * Formats the payload and scrubs sensitive keys before it is sent to the 
+     * Inspekt engine for analysis.
+     * @param args - The collected request and response artifacts.
      * @private
      */
-
     private extractData(args: {
         req: any,
         res: any,
@@ -338,9 +335,9 @@ class Inspekt {
     };
 
     /**
-     * Intercepts and filters API traffic based on the configured analysis mode.
-     * If the criteria are met, it extracts relevant request/response data and 
-     * emits a 'new:analysis' event to the socket server.
+     * Broadcasts captured API traffic to the Inspekt server.
+     * Extracts relevant request/response context and emits a 'new:analysis' 
+     * event via WebSocket for real-time AI processing.
      */
     public newAnalysis(args: {
         req: any,

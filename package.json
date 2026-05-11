@@ -9,19 +9,23 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./express": {
       "types": "./dist/adapters/express.d.ts",
-      "import": "./dist/adapters/express.js"
+      "import": "./dist/adapters/express.js",
+      "require": "./dist/adapters/express.cjs"
     },
     "./fastify": {
       "types": "./dist/adapters/fastify.d.ts",
-      "import": "./dist/adapters/fastify.js"
+      "import": "./dist/adapters/fastify.js",
+      "require": "./dist/adapters/fastify.cjs"
     },
     "./nest": {
       "types": "./dist/adapters/nest.d.ts",
-      "import": "./dist/adapters/nest.js"
+      "import": "./dist/adapters/nest.js",
+      "require": "./dist/adapters/nest.cjs"
     }
   },
   "files": [
@@ -37,7 +41,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsup",
     "dev": "tsx watch src/index.ts",
     "prepublishOnly": "npm run build"
   },
@@ -69,12 +73,14 @@
     "@nestjs/common": "^11.1.17",
     "@nestjs/core": "^11.1.19",
     "@nestjs/platform-express": "^11.1.19",
+    "@swc/core": "^1.15.33",
     "@types/express": "^5.0.6",
     "@types/node": "^25.5.0",
     "@types/ws": "^8.18.1",
     "express": "^5.2.1",
     "fastify": "^5.8.4",
     "rxjs": "^7.8.2",
+    "tsup": "^8.5.1",
     "tsx": "^4.21.0",
     "typescript": "^6.0.2"
   }
