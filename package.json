@@ -1,6 +1,6 @@
 {
   "name": "@inspekt/js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "High-fidelity AI diagnostics for API failures. Stream real-time autopsies directly to your terminal.",
   "type": "module",
   "main": "./dist/index.js",
