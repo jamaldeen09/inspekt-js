@@ -1,6 +1,6 @@
 # inspekt-js
 
-Official JavaScript/TypeScript SDK for [Inspekt](LINK_COMING_SOON) drop-in middleware that silently monitors your API responses and surfaces AI-powered diagnostics directly in your terminal. No dashboards to open and no manual debugging, just run your server and inspekt tells you what's wrong and why.
+Official JavaScript/TypeScript SDK for [Inspekt](https://inspekt-ai.vercel.app) drop-in middleware that silently monitors your API responses and surfaces AI-powered diagnostics directly in your terminal. No dashboards to open and no manual debugging, just run your server and inspekt tells you what's wrong and why.
 
 ## **Supports:** Express · NestJS · Fastify
 
@@ -22,7 +22,7 @@ npm install @inspekt/js
 
 ## Quick Start
 
-Get your API key from your [Inspekt Dashboard](LINK_COMING_SOON).
+Get your API key from your [Inspekt Dashboard](https://inspekt-ai.vercel.app).
 
 ## Usage
 
@@ -30,9 +30,9 @@ Get your API key from your [Inspekt Dashboard](LINK_COMING_SOON).
 
 ```javascript
 import { Inspekt } from "@inspekt/js";
-import inspektExpress from "@inspekt/js/express";
-import InspektInterceptor from "@inspekt/js/nest";
-import inspektFastify from "@inspekt/js/fastify";
+import { inspektExpress } from "@inspekt/js/express";
+import { InspektInterceptor } from "@inspekt/js/nest";
+import { inspektFastify } from "@inspekt/js/fastify";
 ```
 
 **CommonJS (TypeScript/Modern JS):**
@@ -49,7 +49,7 @@ const inspektFastify = require("@inspekt/js/fastify").default;
 ```typescript
 import express from "express";
 import { Inspekt } from "@inspekt/js";
-import inspektExpress from "@inspekt/js/express";
+import { inspektExpress } from "@inspekt/js/express";
 
 const app = express();
 
@@ -80,7 +80,7 @@ app.listen(3000);
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { Inspekt } from "@inspekt/js";
-import InspektInterceptor from "@inspekt/js/nest";
+import { InspektInterceptor } from "@inspekt/js/nest";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -106,7 +106,7 @@ bootstrap();
 ```typescript
 import Fastify from "fastify";
 import { Inspekt } from "@inspekt/js";
-import inspektFastify from "@inspekt/js/fastify";
+import { inspektFastify } from "@inspekt/js/fastify";
 
 const fastify = Fastify();
 
@@ -248,7 +248,7 @@ Keys that don't match this format will throw immediately on initialization, no s
 const inspekt = new Inspekt({ apiKey: "wrong_key" });
 ```
 
-**Get your key at [inspekt.app](LINK_COMING_SOON).**
+**Get your key at (https://inspekt-ai.vercel.app).**
 
 ## Roadmap
 

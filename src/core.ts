@@ -29,8 +29,8 @@ export interface InspektOptions {
 };
 
 class Inspekt {
+    public options: Required<Omit<InspektOptions, 'apiKey'>>;
     private apiKey: string;
-    private options: Required<Omit<InspektOptions, 'apiKey'>>;
     private connectionConfig: ConnectionConfig = {
         ws: null,
         reconnectionAttempts: 0,
@@ -43,9 +43,9 @@ class Inspekt {
 
         // Set smart defaults so the user doesn't have to provide everything
         this.options = {
-            analysisMode: options.analysisMode ?? 'errors',
+            analysisMode: options.analysisMode ?? "errors",
             redactKeys: ["authorization", "cookie", "set-cookie", ...(options.redactKeys ?? [])],
-            terminalOutput: options.terminalOutput ?? true
+            terminalOutput: options.terminalOutput ?? true, 
         };
     };
 
@@ -83,10 +83,11 @@ class Inspekt {
       * @listens WebSocket#onerror - Captures and logs transport-level interruptions.
     */
     public connect() {
-        const initialUrl = `wss://inspekt-engine-production.up.railway.app`;
-        const wsUrl = new URL(initialUrl);
+        const backendUrl = "https://inspekt-engine.onrender.com";
+        const wsUrl = new URL(backendUrl);
         const searchParams = wsUrl.searchParams;
 
+       
         // Set the search params
         searchParams.set("type", "sdk");
         searchParams.set("apiKey", this.apiKey);

@@ -9,8 +9,15 @@ import { Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
 @Injectable()
-export default class InspektInterceptor implements NestInterceptor {
-    constructor(@Inject("INSPEKT") private readonly inspekt: any) { }
+export class InspektInterceptor implements NestInterceptor {
+    constructor(@Inject("INSPEKT") private readonly inspekt: any) {
+        if (!this.inspekt) {
+            console.error("\x1b[31m%s\x1b[0m", "[inspekt] NestJS Error: The 'INSPEKT' provider is missing.");
+            console.error("Ensure you have registered the Inspekt instance in your module providers:");
+            console.error("\x1b[36m%s\x1b[0m", "  { provide: 'INSPEKT', useValue: new Inspekt({ ... }) }");
+            process.exit(1);
+        }
+    }
 
     intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
         const startTime = performance.now();
